@@ -1,0 +1,186 @@
+<html>
+<head>
+	
+	<!-- Webpage Title -->
+	<title>나홀로 쇼핑몰</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+
+    <!-- Specifies the character encoding for the HTML document.
+    Common values:
+      UTF-8 - Character encoding for Unicode
+      ISO-8859-1 - Character encoding for the Latin alphabet -->
+
+
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- A <meta> viewport element gives the browser instructions on how to control the page's dimensions and scaling.
+
+    The width=device-width part sets the width of the page to follow the screen-width of the device (which will vary depending on the device).
+
+    The initial-scale=1.0 part sets the initial zoom level when the page is first loaded by the browser. -->
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&amp;display=swap" rel="stylesheet">
+
+    <script type="text/javascript">
+
+
+		function isCellPhone(p) {
+			var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})[-][0-9]{3,4}[-][0-9]{4}$/;
+			return regExp.test(p);
+		}
+
+		function order() {
+			let name = $('#order_name').val();
+			let count = $('#order_count').val();
+			let address = $('#order_address').val();
+			let phone = $('#order_phone').val();
+
+			if (name == ''){
+				alert('이름을 입력해주세요')
+				$('#order_name').focus()
+				return}
+
+				else if (count == ''){
+					alert('수량을 입력해주세요')
+					$('#order_count').focus()
+					return}
+
+					else if (address == ''){
+						alert('주소를 입력해주세요')
+						$('#order_address').focus()
+						return} 
+
+						else if (phone == ''){
+							alert('전화번호를 입력해주세요')
+							$('#order_address').focus()
+							return} 
+
+							else if (!isCellPhone(phone)) {
+								alert('휴대폰번호 입력 형식이 틀립니다. \n 010-0000-0000으로 입력해주세요')
+								return
+							}
+
+    	 // {
+    		// let phonenum = $('#telephone').val();
+
+    		// let regPhone = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?(0-9]{4})$/;
+
+    		// if(!regPhone.test(phonenum)){
+
+    		// 	alert('잘못된 휴대폰 번호입니다.');
+
+    		// 	$('#telephone').focus();
+
+    		// 	return false;    
+    		// }
+
+    	}
+    </script>
+
+    <style type="text/css">
+    	* {
+    		font-family: 'Stylish', sans-serif;
+    	}
+    	.wrap {
+    		width: 500px;
+    		margin: auto;
+    	}
+    	.img {
+    		background-image: url('https://www.conscious-skincare.com/wp-content/uploads/2016/02/glc-candle-lit-with-new-gift-box.jpg');
+    		background-size: cover;
+    		background-position: center;
+    		width: 500px;
+    		height: 300px;
+    	}
+    	.info {
+    		margin-top: 20px;
+    		margin-bottom: 20px;
+    	}
+    	.user-info {
+    		margin: 20px 5px auto 5px;
+    	}
+    	h1, h5 {
+    		display: inline;
+    	}
+    	.checkbox {
+    		text-align: center;
+    	}
+
+    	.checkbox button {
+    		background-color: skyblue;
+    	}
+
+    	.orders {
+    		margin-top: 100px;
+    	}
+    </style>
+
+
+</head>
+
+
+<body>
+
+	<div class="wrap">
+
+		<div class="img">	</div>
+		<!-- 구역을 나누는 태그들 -->
+		<div id="info">
+			<br>
+			<h1 class="candlesale">양초를 팝니다</h1> 
+			<h5 class="price">가격:3000원/개</h5>
+
+			<div class="text_align">
+				이 양초는 사실 특별한 향기를 가지고 있어요. 
+				양초를 켜고 소원을 빌면 짜자잔 뭐든지 이뤄지게 된답니다. 
+				하나 사가세요!
+				솔 향이 아주 좋아요.
+			</div>
+
+			<br>
+
+			<div class="input-group">
+				<span class="input-group-text" for="username">주문자 이름</span>
+				<input type="text" class="form-control" id ="order_name">
+			</div>
+
+			<!-- class="input-group-text"가 주문자 이름을 박스 안으로 넣게 해 줌 -->
+			
+			<br>
+			<div class="input-group">
+				<span class="input-group-text" for="quantity">수량</span>
+				<input type="quantity" class="form-control" placeholder="수량을 선택하세요" id="order_count">
+			</div>
+
+			<br>
+
+			<div class="input-group">
+				<span class="input-group-text" for="quantity">주소</span>
+				<input type="address" class="form-control" id="order_address">
+			</div>
+
+			<br>
+
+			<div class="input-group">
+				<span class="input-group-text" for="quantity">전화번호</span>
+				<input type="telephone" class="form-control" id="order_phone" >  
+			</div>
+
+			<br>
+			<div class="checkbox">
+				<button onclick="order()" type="submit" class="btn btn-default" id="order">주문하기</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
