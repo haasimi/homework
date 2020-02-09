@@ -61,144 +61,142 @@
             }
           }
         })
+
       }
 
-  
+      $(document).ready(function(){
+        listing();
+      });
 
-    $(document).ready(function(){
-      listing();
-    });
+      function make_card() {
+        let temp_html = ' <tr>\
+        <th scope="col">'+ address +' </th>\
+        <th scope="col">'+ count +'</th>\
+        <th scope="col">'+ name +'</th>\
+        <th scope="col">'+ phone +'</th>\
+        </tr>';
 
-    function listing() {
-      $('#orders-box').html('');
-      $.ajax({
-        type: "GET",
-        url: "http://spartacodingclub.shop/order",
-        data: {},
-        success: function(response){
-          let orders = response["orders"];
-          // console.log(orders)
-          
-          for (let i = 0; i < orders.length; i++) {
-            let address = orders[i]['address'];
-            let count = orders[i]['count'];
-            let name = orders[i]['name'];
-            let phone = orders[i]['phone'];
-
-            // console.log( address, count, name, phone);
-
-            let temp_html = ' <tr>\
-            <th scope="col">'+ address +' </th>\
-            <th scope="col">'+ count +'</th>\
-            <th scope="col">'+ name +'</th>\
-            <th scope="col">'+ phone +'</th>\
-            </tr>';
-
-            $('#orders-box').append(temp_html);
-
-
-          }
-        }
+        $('#orders-box').append(temp_html);
       }
-      )
-    }
-    
-  </script>
+
+      function listing() {
+        $('#orders-box').html('');
+        $.ajax({
+          type: "GET",
+          url: "/order",
+          data: {},
+          success: function(response){
+           if (response['result'] == 'success') {
+             let orders = response['orders'];
+             console.log(orders);
+             for (let i = 0; i < orders.length; i++) {
+               make_card(orders[i]['name'],orders[i]['count'],orders[i]['address'],orders[i]['phone'])
+             }
+           } else {
+             alert('명단을 받아오지 못했습니다');
+           }
+         }
+       })           
+
+      }
 
 
-  <style type="text/css">
-    * {
-      font-family: 'Stylish', sans-serif;
-    }
-    .wrap {
-      width: 500px;
-      margin: auto;
-    }
-    .img {
-      background-image: url('https://www.conscious-skincare.com/wp-content/uploads/2016/02/glc-candle-lit-with-new-gift-box.jpg');
-      background-size: cover;
-      background-position: center;
-      width: 500px;
-      height: 300px;
-    }
-    .info {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-    .user-info {
-      margin: 20px 5px auto 5px;
-    }
-    h1, h5 {
-      display: inline;
-    }
-    .order {
-      text-align: center;
-    }
-    .orders {
-      margin-top: 100px;
-    }
-  </style>
-</head>
+    </script>
 
 
-<body>
-  <div class="wrap">
-    <div class="img"></div>
-    <div class="info">
-      <h1>양초를 팝니다</h1>
-      <h5>가격: 3,000원/개</h5>
-      <p>이 양초는 사실 특별한 힘을 가지고 있어요. 양초를 켜고 소원을 빌면 짜자잔 뭐든지 이뤄지게 된답니다. 하나 사가세요! 대나무 향이 아주 좋아요</p>
+    <style type="text/css">
+      * {
+        font-family: 'Stylish', sans-serif;
+      }
+      .wrap {
+        width: 500px;
+        margin: auto;
+      }
+      .img {
+        background-image: url('https://www.conscious-skincare.com/wp-content/uploads/2016/02/glc-candle-lit-with-new-gift-box.jpg');
+        background-size: cover;
+        background-position: center;
+        width: 500px;
+        height: 300px;
+      }
+      .info {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .user-info {
+        margin: 20px 5px auto 5px;
+      }
+      h1, h5 {
+        display: inline;
+      }
+      .order {
+        text-align: center;
+      }
+      .orders {
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+
+
+  <body>
+    <div class="wrap">
+      <div class="img"></div>
+      <div class="info">
+        <h1>양초를 팝니다</h1>
+        <h5>가격: 3,000원/개</h5>
+        <p>이 양초는 사실 특별한 힘을 가지고 있어요. 양초를 켜고 소원을 빌면 짜자잔 뭐든지 이뤄지게 된답니다. 하나 사가세요! 대나무 향이 아주 좋아요</p>
+      </div>
+      <div class="info">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">주문자 이름</span>
+          </div>
+          <input type="text" class="form-control" id="order_name" aria-describedby="basic-addon3">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">수량</label>
+          </div>
+          <select class="custom-select" id="order_count">
+            <option selected="" value=""> -- 수량을 선택하세요 -- </option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">주소</span>
+          </div>
+          <input type="text" class="form-control" id="order_address" aria-describedby="basic-addon3">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">전화번호</span>
+          </div>
+          <input type="text" class="form-control" id="order_phone" aria-describedby="basic-addon3">
+        </div>
+        <div class="order">
+          <button onclick="order()" type="button" class="btn btn-primary">주문하기</button>
+        </div>
+      </div>
+      <div class="orders">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">이름</th>
+              <th scope="col">수량</th>
+              <th scope="col">주소</th>
+              <th scope="col">전화번호</th>
+            </tr>
+          </thead>
+          <tbody id="orders-box"></tbody>
+        </table>
+      </div>
+
+
+
     </div>
-    <div class="info">
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon3">주문자 이름</span>
-        </div>
-        <input type="text" class="form-control" id="order_name" aria-describedby="basic-addon3">
-      </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">수량</label>
-        </div>
-        <select class="custom-select" id="order_count">
-          <option selected="" value=""> -- 수량을 선택하세요 -- </option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon3">주소</span>
-        </div>
-        <input type="text" class="form-control" id="order_address" aria-describedby="basic-addon3">
-      </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon3">전화번호</span>
-        </div>
-        <input type="text" class="form-control" id="order_phone" aria-describedby="basic-addon3">
-      </div>
-      <div class="order">
-        <button onclick="order()" type="button" class="btn btn-primary">주문하기</button>
-      </div>
-    </div>
-    <div class="orders">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">이름</th>
-            <th scope="col">수량</th>
-            <th scope="col">주소</th>
-            <th scope="col">전화번호</th>
-          </tr>
-        </thead>
-        <tbody id="orders-box"></tbody>
-      </table>
-    </div>
 
-
-
-  </div>
-
-</body>
+  </body>
